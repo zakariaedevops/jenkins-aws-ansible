@@ -1,0 +1,10 @@
+---
+# tasks file for install the java`
+- name: install java-openjdk11 
+  shell:
+      sudo amazon-linux-extras install java-openjdk11
+- name: install java-openjdk17 
+  shell:
+      sudo yum install java-17-amazon-corretto-headless -y
+
+
