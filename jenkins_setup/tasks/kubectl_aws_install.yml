@@ -1,0 +1,38 @@
+---
+
+- name: Install prerequisites
+  become: true  # Run tasks with root privileges
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg
+
+- name: Add Kubernetes apt-key
+  become: true
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+
+- name: Add Kubernetes repository
+  become: true
+  apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+
+- name: Install kubectl
+  become: true
+  apt:
+    name: kubectl
+    state: present
+
+- name: Install AWS CLI
+  become: true
+  apt:
+    name: awscli
+    state: present

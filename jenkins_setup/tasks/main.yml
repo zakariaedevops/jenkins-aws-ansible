@@ -4,3 +4,4 @@
  - include: Maven_install.yml
  - include: docker_install.yml
  - include: Jenkins_install.yml
+ - include: kubectl_aws_install.yml
