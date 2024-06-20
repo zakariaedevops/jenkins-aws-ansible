@@ -1,9 +1,4 @@
 ---
-- name: Install epel-release repository (for AWS CLI)
-  become: true
-  yum:
-    name: epel-release
-    state: present
 
 - name: Install kubectl
   become: true
@@ -11,8 +6,14 @@
     name: kubectl
     state: present
 
-- name: Install AWS CLI
+- name: Install AWS CLI dependencies
   become: true
   yum:
-    name: awscli
+    name: python3-pip  # Install pip for Python packages
     state: present
+
+- name: Install AWS CLI using pip
+  become: true
+  pip:
+    name: awscli
+    executable: pip3  # Specify pip3 for Python 3
