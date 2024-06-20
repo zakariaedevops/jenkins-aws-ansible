@@ -1,11 +1,5 @@
 ---
 
-- name: Install kubectl
-  become: true
-  yum:
-    name: kubectl
-    state: present
-
 - name: Install AWS CLI dependencies
   become: true
   yum:
@@ -17,3 +11,10 @@
   pip:
     name: awscli
     executable: pip3  # Specify pip3 for Python 3
+
+- name: Download and install kubectl binary
+  become: true
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v1.23.0/bin/linux/amd64/kubectl
+    dest: /usr/local/bin/kubectl
+    mode: '0755'
