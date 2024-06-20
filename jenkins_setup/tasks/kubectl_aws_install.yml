@@ -1,22 +1,18 @@
 ---
-- name: Install kubectl and AWS CLI
-  hosts: all  # Replace with your target hosts or group
+- name: Install epel-release repository (for AWS CLI)
+  become: true
+  yum:
+    name: epel-release
+    state: present
 
-  tasks:
-    - name: Install epel-release repository (for AWS CLI)
-      become: true
-      yum:
-        name: epel-release
-        state: present
+- name: Install kubectl
+  become: true
+  yum:
+    name: kubectl
+    state: present
 
-    - name: Install kubectl
-      become: true
-      yum:
-        name: kubectl
-        state: present
-
-    - name: Install AWS CLI
-      become: true
-      yum:
-        name: awscli
-        state: present
+- name: Install AWS CLI
+  become: true
+  yum:
+    name: awscli
+    state: present
