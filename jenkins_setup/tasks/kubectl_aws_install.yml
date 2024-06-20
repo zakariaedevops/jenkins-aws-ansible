@@ -1,38 +1,22 @@
 ---
+- name: Install kubectl and AWS CLI
+  hosts: all  # Replace with your target hosts or group
 
-- name: Install prerequisites
-  become: true  # Run tasks with root privileges
-  apt:
-    name: "{{ packages }}"
-    state: present
-  vars:
-    packages:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - software-properties-common
-      - gnupg
+  tasks:
+    - name: Install epel-release repository (for AWS CLI)
+      become: true
+      yum:
+        name: epel-release
+        state: present
 
-- name: Add Kubernetes apt-key
-  become: true
-  apt_key:
-    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-    state: present
+    - name: Install kubectl
+      become: true
+      yum:
+        name: kubectl
+        state: present
 
-- name: Add Kubernetes repository
-  become: true
-  apt_repository:
-    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
-    state: present
-
-- name: Install kubectl
-  become: true
-  apt:
-    name: kubectl
-    state: present
-
-- name: Install AWS CLI
-  become: true
-  apt:
-    name: awscli
-    state: present
+    - name: Install AWS CLI
+      become: true
+      yum:
+        name: awscli
+        state: present
